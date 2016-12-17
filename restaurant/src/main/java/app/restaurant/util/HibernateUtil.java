@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 /**
  * 
  * @author Alex
- * Hibernate connector links the java code with the MySQL database.
+ * Hibernate connector links the Java code with MySQL database.
  */
 public class HibernateUtil {
     private static HibernateUtil me;
