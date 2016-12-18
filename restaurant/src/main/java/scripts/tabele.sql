@@ -23,6 +23,7 @@ drop table  if exists `comanda`;
 create table comanda (
 	id int not null auto_increment,
     customer_id int not null,
+    data date not null,
     primary key(id),
     foreign key(customer_id) references customer(id)
 ); 
@@ -64,6 +65,7 @@ create table istoric_comenzi (
     foreign key(comanda_id) references comanda(id),
     foreign key(produs_id) references produs(id)
 )
+
 
 
 
