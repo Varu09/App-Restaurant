@@ -5,6 +5,7 @@ import java.text.Annotation;
 import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -32,33 +33,99 @@ public class MasaDaoImpl implements MasaDao{
 		return mese;
 	}
 
-	public Masa addTable(Masa masa) {
+	/**
+	 * INSERT
+	 */
+	
+	public void addTable(Masa masa) {
         Session session = null;
         Transaction transaction = null;
-        Masa newMasa = null;
+       // Masa newMasa = null;
         try {
             session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
+            
+            Query query = session.createSQLQuery("INSERT INTO Masa(nr_locuri) "
+            										+ "VALUES(:nrLocuri)");
+           
+            query.setParameter("nrLocuri", masa.getNrLocuri());
+            
+            int result = query.executeUpdate();
+			System.out.println("Rows affected: " + result);
+            
+            /*
             Integer masaId = (Integer) session.save(masa);
             newMasa = (Masa) session.get(Masa.class, masaId);
+            */
+            
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return newMasa;
+       // return newMasa;
 	}
+	
+	/**
+	 * UPDATE
+	 */
 	
 	public void updateTable(Masa masa) {
 		Session session = null;
+		Transaction transaction = null;
+		
         try {
-            session = HibernateUtil.getInstance().getSession();
+        	session = HibernateUtil.getInstance().getSession();
+            transaction = session.beginTransaction();
+            
+            Query query = session.createSQLQuery("UPDATE Masa SET nr_locuri = :nrLocuri " +
+					 "WHERE id = :id");
+			query.setParameter("nrLocuri", masa.getNrLocuri());
+			query.setParameter("id", masa.getId());           
+			int result = query.executeUpdate();
+			transaction.commit();
+			session.flush();
+			System.out.println("Rows affected: " + result);
+            
+            
+            /*
             session.saveOrUpdate(masa);
             session.flush();
+            */
+            
+           
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             session.close();
         }
 		
+	}
+	
+	/** 
+	 * DELETE
+	 */
+	public void removeTable(Masa masa) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+            transaction = session.beginTransaction();
+            
+            Query query = session.createSQLQuery("DELETE FROM Masa " +
+					"WHERE id = :id");		
+			query.setParameter("id", masa.getId());           
+			int result = query.executeUpdate();
+			transaction.commit();
+			session.flush();
+			System.out.println("Rows affected: " + result);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 }

@@ -27,35 +27,98 @@ public class CustomerDaoImpl implements CustomerDao {
 		return clienti;
 	}
 	
-	public Customer addCustomer(Customer client) {
+	/**
+	 * Metoda asta face INSERT
+	 */
+	public void addCustomer(Customer client) {
 		Session session = null;
         Transaction transaction = null;
-        Customer newCustomer = null;
+        //Customer newCustomer = null;
         try {
             session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
-            Integer clientId = (Integer) session.save(client);
+            
+            Query query = session.createSQLQuery("INSERT INTO CUSTOMER(nume,prenume,nr_masa) VALUES(:nume,:prenume,:nrMasa)");
+            query.setParameter("nume", client.getNume());
+            query.setParameter("prenume", client.getPrenume());
+            query.setParameter("nrMasa", client.getNrMasa());
+            
+            int result = query.executeUpdate();
+			System.out.println("Rows affected: " + result);
+            
+            /*Integer clientId = (Integer) session.save(client);
             newCustomer = (Customer) session.get(Customer.class, clientId);
-            transaction.commit();
+            */    
+          transaction.commit();
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return newCustomer;
+       // return newCustomer;
 		
 	}
 	
+	/**
+	 * Metoda asta face UPDATE
+	 */
+	
 	public void updateCustomer(Customer client) {
 		Session session = null;
+		Transaction transaction = null;
         try {
             session = HibernateUtil.getInstance().getSession();
-            session.saveOrUpdate(client);
+            transaction = session.beginTransaction();
+            
+            Query query = session.createSQLQuery("UPDATE CUSTOMER set nume = :nume " +
+            									 "WHERE id = :id");
+            query.setParameter("nume", client.getNume());
+            query.setParameter("id", client.getId());           
+            int result = query.executeUpdate();
+            transaction.commit();
             session.flush();
+			System.out.println("Rows affected: " + result);
+            
+            /*session.saveOrUpdate(client);
+            session.flush();
+            */
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             session.close();
         }		
 	}
+	
+	/**
+	 * Metoda asta face DELETE
+	 */
+	
+	public void removeCustomer(Customer client) {
+		Session session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+            transaction = session.beginTransaction();
+            
+			Query query = session.createSQLQuery("DELETE FROM CUSTOMER " +
+												"WHERE id = :id");		
+			query.setParameter("id", client.getId());           
+			int result = query.executeUpdate();
+			transaction.commit();
+            session.flush();
+			System.out.println("Rows affected: " + result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	/**
+	 * AFISARE
+	 */
 	
 	public List<Customer> getCustomersByName(String nume, String prenume) {
 		Session session = null;

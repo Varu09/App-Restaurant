@@ -23,7 +23,7 @@ public class Comanda implements Serializable {
 	private int clientId;
 	
 	@Column(name = "data")
-	private LocalDate data;
+	private String data;
 
 	public int getId() {
 		return id;
@@ -41,11 +41,11 @@ public class Comanda implements Serializable {
 		this.clientId = clientId;
 	}
 
-	public LocalDate getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 }

@@ -3,10 +3,16 @@ import java.io.IOException;
 import java.util.List;
 
 import app.restaurant.client.MenuController;
+import app.restaurant.dao.CategorieDao;
+import app.restaurant.dao.ComandaDao;
 import app.restaurant.dao.CustomerDao;
 import app.restaurant.dao.MasaDao;
+import app.restaurant.dao.impl.CategorieDaoImpl;
+import app.restaurant.dao.impl.ComandaDaoImpl;
 import app.restaurant.dao.impl.CustomerDaoImpl;
 import app.restaurant.dao.impl.MasaDaoImpl;
+import app.restaurant.model.Categorie;
+import app.restaurant.model.Comanda;
 import app.restaurant.model.Customer;
 import app.restaurant.model.Masa;
 import app.restaurant.util.Constants;
@@ -22,10 +28,22 @@ public class App extends Application {
 	
 	private Stage primaryStage;
     private BorderPane rootLayout;
-
+    
+    
+    //===================================================
+    /**
+     * Main method
+     * @param args
+     */
     public static void main(String[] args) {
-        launch(args);
+       // launch(args);   	
+    	
+    	test();
+		
+		
+    	
     }
+    //====================================================
 
     
     @Override
@@ -85,33 +103,82 @@ public class App extends Application {
 
 	public static void test() {
 		
+		//Comanda
+		
+		ComandaDao comandaDao = new ComandaDaoImpl();
+		Comanda comanda = new Comanda();
+		
+		comanda.setClientId(3);
+		comanda.setData("2016-09-23");
+		comandaDao.addComanda(comanda);
+		
+		
+		/*====================================================================================================
+		// Categorie
+			
+				CategorieDao categorieDao = new CategorieDaoImpl();
+				Categorie categorie = new Categorie();
+				
+				//categorie.setDenumire("Gratar");
+				//categorieDao.addCategorie(categorie);
+				
+				//categorie.setDenumire("Bauturi");
+				//categorie.setId(3); 
+				//categorieDao.updateCategorie(categorie);
+				
+				//categorieDao.removeCategorie(categorie);
+				
+				//List<Categorie> categorii = categorieDao.getCategorie();				
+				//categorii.stream().map(m -> m.getDenumire()).forEach(System.out::println);
+		
+		   ====================================================================================================*/
+		/* ====================================================================================================
 		// Masa
 				MasaDao masaDao = new MasaDaoImpl();
 				Masa masa = new Masa();
-				masa.setNrLocuri(10);
-				Masa newTable = masaDao.addTable(masa);
+				//masa.setNrLocuri(10);
+				//masaDao.addTable(masa);
 				
-				newTable.setNrLocuri(7);
-				masaDao.updateTable(newTable);
+				
+				//masa.setId(3);
+				//masa.setNrLocuri(5);
+				//masaDao.updateTable(masa);
+				
+				//masa.setId(2);
+				//masaDao.removeTable(masa);
+				
+				
+				//newTable.setNrLocuri(7);
+				//masaDao.updateTable(newTable);
 				List<Masa> mese = masaDao.getTables();
 
 				mese.stream().map(m -> m.getNrLocuri()).forEach(System.out::println);
-				
+			====================================================================================================*/	
+			
+		/* ====================================================================================================
+		 
 		// Clienti
 				
 				CustomerDao clientDao = new CustomerDaoImpl();
-				Customer client = new Customer();
-				client.setNume("George");
-				client.setPrenume("Valentin");
-				client.setNrMasa(3);
-				Customer newClient = clientDao.addCustomer(client);
+				
+				Customer newClient = new Customer();
 				newClient.setNume("Hamilton");
 				newClient.setPrenume("John");
 				newClient.setNrMasa(1);
-				//clientDao.updateCustomer(newClient);
-				List<Customer> clienti = clientDao.getCustomersByName("Hamilton", "John");
+				clientDao.addCustomer(newClient);
 				
-				clienti.stream().map(c -> c.getNume()).forEach(System.out::println);
+				newClient.setId(1);
+				newClient.setNume("Vasile");
+				clientDao.updateCustomer(newClient);			
+				
+				newClient.setId(1);
+			    clientDao.removeCustomer(newClient);
+			    
+				
+				//List<Customer> clienti = clientDao.getCustomersByName("Vasile", "John");
+				
+				//clienti.stream().map(c -> c.getNume()).forEach(System.out::println);
+		==================================================================================================== */
 		
 	}
 

@@ -7,7 +7,8 @@ import app.restaurant.model.Masa;
 
 public interface MasaDao {
 	public List<Masa> getTables();
-	public Masa addTable(Masa masa);
+	public void addTable(Masa masa);
 	public void updateTable(Masa masa);
+	public void removeTable(Masa masa);
 	
 }
