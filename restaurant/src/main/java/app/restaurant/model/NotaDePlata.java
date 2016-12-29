@@ -25,7 +25,7 @@ public class NotaDePlata implements Serializable{
 	private int gramajTotal;
 	
 	@Column(name = "pret_total")
-	private double pretTotal;
+	private int pretTotal;
 
 	public int getId() {
 		return id;
@@ -51,11 +51,11 @@ public class NotaDePlata implements Serializable{
 		this.gramajTotal = gramajTotal;
 	}
 
-	public double getPretTotal() {
+	public int getPretTotal() {
 		return pretTotal;
 	}
 
-	public void setPretTotal(double pretTotal) {
+	public void setPretTotal(int pretTotal) {
 		this.pretTotal = pretTotal;
 	}
 	

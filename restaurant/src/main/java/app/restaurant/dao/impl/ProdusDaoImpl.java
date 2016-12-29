@@ -6,39 +6,39 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import app.restaurant.dao.ComandaDao;
-import app.restaurant.model.Comanda;
+import app.restaurant.dao.ProdusDao;
+import app.restaurant.model.Produs;
 import app.restaurant.util.HibernateUtil;
 
-public class ComandaDaoImpl implements ComandaDao {
+public class ProdusDaoImpl implements ProdusDao{
 	
 	/**
 	 * AFISARE
 	 */
-	public List<Comanda> getComanda() {
-		
-		List<Comanda> comenzi = null;
+	
+	public List<Produs> getProduse() {
+		List<Produs> produse = null;
 		Session session = null;
         Transaction transaction = null;
         
         try {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
-            comenzi = session.createCriteria(Comanda.class).list();
+            produse = session.createCriteria(Produs.class).list();
             transaction.commit();
         	
         } catch(Exception e) {
         	e.printStackTrace();
         }
         
-        return comenzi;
+        return produse;
 	}
 	
 	/**
 	 * INSERT
 	 */
 	
-	public void addComanda(Comanda comanda) {
+	public void addProdus(Produs produs) {
 		Session session = null;
         Transaction transaction = null;
         
@@ -46,11 +46,12 @@ public class ComandaDaoImpl implements ComandaDao {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("INSERT INTO Comanda(customer_id, data) "
-												+ "VALUES(:clientId, :data)");
-            
-            query.setParameter("clientId",comanda.getClientId());
-            query.setParameter("data",comanda.getData());
+            Query query = session.createSQLQuery("INSERT INTO Produs(categorie_id, nume, pret, gramaj) "
+					+ "VALUES(:categorieId, :nume, :pret, :gramaj)");
+            query.setParameter("categorieId", produs.getCategorieId());
+            query.setParameter("nume", produs.getNume());
+            query.setParameter("pret", produs.getPret());
+            query.setParameter("gramaj", produs.getGramaj());
             int result = query.executeUpdate();
 			System.out.println("Rows affected: " + result);
 			transaction.commit();
@@ -64,45 +65,53 @@ public class ComandaDaoImpl implements ComandaDao {
 	 * UPDATE
 	 */
 	
-	public void updateComanda(Comanda comanda){
-		Session session = null;
+	public void updateProdus(Produs produs) {
+		
+		Session session = null;	
         Transaction transaction = null;
+        
         
         try {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("UPDATE Comanda SET data = :data " +
-					 "WHERE id = :id");
-            query.setParameter("id", comanda.getId());
-            query.setParameter("data",comanda.getData());
-            int result = query.executeUpdate();
-			transaction.commit();
-			session.flush();
-			System.out.println("Rows affected: " + result);
+        	Query query = session.createSQLQuery("UPDATE Produs SET pret = :pret, gramaj = :gramaj, "
+        						+ "nume = :nume  WHERE id = :id");
+        	query.setParameter("id", produs.getId());
+        	query.setParameter("pret", produs.getPret()); 
+        	query.setParameter("gramaj", produs.getGramaj());
+        	query.setParameter("nume", produs.getNume());
+        	
+        	
+        	int result = query.executeUpdate();
+ 			transaction.commit();
+ 			session.flush();
+ 			System.out.println("Rows affected: " + result);
+ 			
+ 			    	
+        	
         	
         } catch(Exception e) {
         	e.printStackTrace();
         } finally {
-        	 session.close();
+        	session.close();        	
         }
-        
 	}
 	
 	/**
 	 * DELETE
 	 */
-	public void removeComanda(Comanda comanda){
-		Session session = null;
+	public void removeProdus(Produs produs) {
+		Session session = null;	
         Transaction transaction = null;
         
         try {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("DELETE FROM Comanda " +
-					"WHERE id = :id");
-            query.setParameter("id", comanda.getId());
+            Query query = session.createSQLQuery("DELETE FROM Produs " +
+											"WHERE id = :id");
+            query.setParameter("id", produs.getId());
             int result = query.executeUpdate();
 			transaction.commit();
 			session.flush();
@@ -111,7 +120,7 @@ public class ComandaDaoImpl implements ComandaDao {
         } catch(Exception e) {
         	e.printStackTrace();
         } finally {
-        	session.close();
+        	session.close();  
         }
 	}
 }

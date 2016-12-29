@@ -6,15 +6,24 @@ import app.restaurant.client.MenuController;
 import app.restaurant.dao.CategorieDao;
 import app.restaurant.dao.ComandaDao;
 import app.restaurant.dao.CustomerDao;
+import app.restaurant.dao.IstoricComenziDao;
 import app.restaurant.dao.MasaDao;
+import app.restaurant.dao.NotaDePlataDao;
+import app.restaurant.dao.ProdusDao;
 import app.restaurant.dao.impl.CategorieDaoImpl;
 import app.restaurant.dao.impl.ComandaDaoImpl;
 import app.restaurant.dao.impl.CustomerDaoImpl;
+import app.restaurant.dao.impl.IstoricComenziDaoImpl;
 import app.restaurant.dao.impl.MasaDaoImpl;
+import app.restaurant.dao.impl.NotaDePlataDaoImpl;
+import app.restaurant.dao.impl.ProdusDaoImpl;
 import app.restaurant.model.Categorie;
 import app.restaurant.model.Comanda;
 import app.restaurant.model.Customer;
+import app.restaurant.model.IstoricComenzi;
 import app.restaurant.model.Masa;
+import app.restaurant.model.NotaDePlata;
+import app.restaurant.model.Produs;
 import app.restaurant.util.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,9 +45,9 @@ public class App extends Application {
      * @param args
      */
     public static void main(String[] args) {
-       // launch(args);   	
+        launch(args);   	
     	
-    	test();
+    	//test();
 		
 		
     	
@@ -102,16 +111,79 @@ public class App extends Application {
 
 
 	public static void test() {
+		/* ====================================================================================================
+		//IstoricComenzi
 		
+		IstoricComenziDao istoricDao = new IstoricComenziDaoImpl();
+		IstoricComenzi istoric = new IstoricComenzi();
+		
+		//istoric.setComandaId(1);
+		//istoric.setProdusId(3);
+		//istoricDao.addIstoricComenzi(istoric);
+		
+		//istoric.setId(2);
+		//istoricDao.removeIstoricComenzi(istoric);
+		 ====================================================================================================*/
+		
+		/* ====================================================================================================
+		//NotaDePlata
+		  
+		NotaDePlataDao notaDao = new NotaDePlataDaoImpl();
+		NotaDePlata nota = new NotaDePlata();
+		
+		//nota.setGramajTotal(600);
+		//nota.setNrMasa(2);
+		//nota.setPretTotal(150);
+		//notaDao.addNota(nota);
+		
+		//nota.setId(1);
+		//nota.setGramajTotal(1000);
+		//nota.setPretTotal(200);
+		//notaDao.updateNota(nota);
+		
+		//notaDao.removeNota(nota);
+		====================================================================================================*/
+		
+		/* ====================================================================================================
+		//Produs
+		ProdusDao produsDao = new ProdusDaoImpl();
+		Produs produs = new Produs();
+		
+		//produs.setCategorieId(3);
+		//produs.setNume("Ceafa de porc");
+		//produs.setPret(15);
+		//produs.setGramaj(300);
+		//produsDao.addProdus(produs);
+		
+		//produs.setPret(6);
+		//produs.setId(1);
+		//produs.setGramaj(250);
+		//produs.setNume("Kaiser");
+		//produsDao.updateProdus(produs);
+		
+		//produsDao.removeProdus(produs);
+		
+		//List<Produs> produse = produsDao.getProduse();
+		//produse.stream().map(p -> p.getNume()).forEach(System.out::println);
+		
+		====================================================================================================*/
+		
+		/* ====================================================================================================
 		//Comanda
 		
 		ComandaDao comandaDao = new ComandaDaoImpl();
 		Comanda comanda = new Comanda();
 		
-		comanda.setClientId(3);
-		comanda.setData("2016-09-23");
-		comandaDao.addComanda(comanda);
+		//comanda.setClientId(2);
+		//comanda.setData("2016-09-23 13:54:25");
+		//comandaDao.addComanda(comanda);
 		
+		//comanda.setId(1);
+		//comanda.setData("2016-09-23 15:44:04");
+		//comandaDao.updateComanda(comanda);
+		
+		//comandaDao.removeComanda(comanda);
+		====================================================================================================*/
 		
 		/*====================================================================================================
 		// Categorie
@@ -162,17 +234,19 @@ public class App extends Application {
 				CustomerDao clientDao = new CustomerDaoImpl();
 				
 				Customer newClient = new Customer();
-				newClient.setNume("Hamilton");
-				newClient.setPrenume("John");
-				newClient.setNrMasa(1);
-				clientDao.addCustomer(newClient);
+				//newClient.setNume("Hamilton");
+				//newClient.setPrenume("John");
+				//newClient.setNrMasa(1);
+				//clientDao.addCustomer(newClient);
 				
-				newClient.setId(1);
-				newClient.setNume("Vasile");
-				clientDao.updateCustomer(newClient);			
+				//newClient.setId(1);
+				//newClient.setNume("Carol");
+				//newClient.setPrenume("Alfred");
+				//newClient.setNrMasa(2);
+				//clientDao.updateCustomer(newClient);			
 				
-				newClient.setId(1);
-			    clientDao.removeCustomer(newClient);
+				//newClient.setId(1);
+			    //clientDao.removeCustomer(newClient);
 			    
 				
 				//List<Customer> clienti = clientDao.getCustomersByName("Vasile", "John");

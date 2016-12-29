@@ -27,7 +27,7 @@ public class Produs implements Serializable {
 	private String nume;
 	
 	@Column(name = "pret")
-	private double pret;
+	private int pret;
 	
 	@Column(name = "gramaj")
 	private int gramaj;
@@ -56,11 +56,11 @@ public class Produs implements Serializable {
 		this.nume = nume;
 	}
 
-	public double getPret() {
+	public int getPret() {
 		return pret;
 	}
 
-	public void setPret(double pret) {
+	public void setPret(int pret) {
 		this.pret = pret;
 	}
 

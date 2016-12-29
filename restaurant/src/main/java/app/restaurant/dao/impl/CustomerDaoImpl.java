@@ -38,7 +38,8 @@ public class CustomerDaoImpl implements CustomerDao {
             session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("INSERT INTO CUSTOMER(nume,prenume,nr_masa) VALUES(:nume,:prenume,:nrMasa)");
+            Query query = session.createSQLQuery("INSERT INTO CUSTOMER(nume,prenume,nr_masa) "
+            										+ "VALUES(:nume,:prenume,:nrMasa)");
             query.setParameter("nume", client.getNume());
             query.setParameter("prenume", client.getPrenume());
             query.setParameter("nrMasa", client.getNrMasa());
@@ -69,9 +70,11 @@ public class CustomerDaoImpl implements CustomerDao {
             session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("UPDATE CUSTOMER set nume = :nume " +
-            									 "WHERE id = :id");
+            Query query = session.createSQLQuery("UPDATE CUSTOMER set nume = :nume, prenume = :prenume, "
+            								+ "nr_masa = :nrMasa WHERE id = :id");
             query.setParameter("nume", client.getNume());
+            query.setParameter("prenume", client.getPrenume());
+            query.setParameter("nrMasa", client.getNrMasa());
             query.setParameter("id", client.getId());           
             int result = query.executeUpdate();
             transaction.commit();

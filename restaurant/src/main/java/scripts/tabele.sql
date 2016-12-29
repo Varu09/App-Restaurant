@@ -23,7 +23,7 @@ drop table  if exists `comanda`;
 create table comanda (
 	id int not null auto_increment,
     customer_id int not null,
-    data date not null,
+    data datetime not null,
     primary key(id),
     foreign key(customer_id) references customer(id)
 ); 
@@ -33,7 +33,7 @@ create table nota_de_plata (
 	id int not null auto_increment,
 	nr_masa int not null,
     gramaj_total int not null,
-    pret_total numeric not null,
+    pret_total int not null,
     primary key(id),
     foreign key(nr_masa) references masa(id)
 );
@@ -41,7 +41,7 @@ create table nota_de_plata (
 drop table if exists `categorie`;
 create table categorie (
 	id int not null auto_increment,
-    denumire varchar(12),
+    denumire varchar(40),
     primary key(id)
 );
 
@@ -50,7 +50,7 @@ create table produs (
 	id int not null auto_increment,
     categorie_id int not null,
     nume varchar(40) not null,
-    pret numeric not null,
+    pret int not null,
     gramaj int not null,
     primary key(id),
     foreign key(categorie_id) references categorie(id)

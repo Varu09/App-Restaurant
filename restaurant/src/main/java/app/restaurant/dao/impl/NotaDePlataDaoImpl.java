@@ -6,39 +6,39 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import app.restaurant.dao.ComandaDao;
-import app.restaurant.model.Comanda;
+import app.restaurant.dao.NotaDePlataDao;
+import app.restaurant.model.NotaDePlata;
 import app.restaurant.util.HibernateUtil;
 
-public class ComandaDaoImpl implements ComandaDao {
+public class NotaDePlataDaoImpl implements NotaDePlataDao {
 	
 	/**
 	 * AFISARE
 	 */
-	public List<Comanda> getComanda() {
+	public List<NotaDePlata> getChitante() {
 		
-		List<Comanda> comenzi = null;
+		List<NotaDePlata> chitante = null;
 		Session session = null;
         Transaction transaction = null;
         
         try {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
-            comenzi = session.createCriteria(Comanda.class).list();
+            chitante = session.createCriteria(NotaDePlata.class).list();
             transaction.commit();
         	
         } catch(Exception e) {
         	e.printStackTrace();
         }
         
-        return comenzi;
+        return chitante;
 	}
 	
 	/**
 	 * INSERT
 	 */
 	
-	public void addComanda(Comanda comanda) {
+	public void addNota(NotaDePlata nota) {
 		Session session = null;
         Transaction transaction = null;
         
@@ -46,11 +46,11 @@ public class ComandaDaoImpl implements ComandaDao {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("INSERT INTO Comanda(customer_id, data) "
-												+ "VALUES(:clientId, :data)");
-            
-            query.setParameter("clientId",comanda.getClientId());
-            query.setParameter("data",comanda.getData());
+            Query query = session.createSQLQuery("INSERT INTO nota_de_plata(nr_masa, gramaj_total, pret_total) "
+					+ "VALUES(:nrMasa, :gramajTotal, :pretTotal)");
+            query.setParameter("nrMasa", nota.getNrMasa());
+            query.setParameter("gramajTotal", nota.getGramajTotal());
+            query.setParameter("pretTotal", nota.getPretTotal());
             int result = query.executeUpdate();
 			System.out.println("Rows affected: " + result);
 			transaction.commit();
@@ -63,8 +63,7 @@ public class ComandaDaoImpl implements ComandaDao {
 	/**
 	 * UPDATE
 	 */
-	
-	public void updateComanda(Comanda comanda){
+	public void updateNota(NotaDePlata nota) {
 		Session session = null;
         Transaction transaction = null;
         
@@ -72,27 +71,28 @@ public class ComandaDaoImpl implements ComandaDao {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("UPDATE Comanda SET data = :data " +
-					 "WHERE id = :id");
-            query.setParameter("id", comanda.getId());
-            query.setParameter("data",comanda.getData());
+            Query query = session.createSQLQuery("UPDATE nota_de_plata SET pret_total = :pretTotal, gramaj_total = :gramajTotal "
+													+ "WHERE id = :id");
+            query.setParameter("gramajTotal", nota.getGramajTotal());
+            query.setParameter("pretTotal", nota.getPretTotal());
+            query.setParameter("id", nota.getId());
+            
             int result = query.executeUpdate();
-			transaction.commit();
-			session.flush();
-			System.out.println("Rows affected: " + result);
+ 			transaction.commit();
+ 			session.flush();
+ 			System.out.println("Rows affected: " + result);
         	
         } catch(Exception e) {
         	e.printStackTrace();
         } finally {
-        	 session.close();
+        	session.close();        	
         }
-        
 	}
 	
 	/**
 	 * DELETE
 	 */
-	public void removeComanda(Comanda comanda){
+	public void removeNota(NotaDePlata nota) {
 		Session session = null;
         Transaction transaction = null;
         
@@ -100,18 +100,19 @@ public class ComandaDaoImpl implements ComandaDao {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
             
-            Query query = session.createSQLQuery("DELETE FROM Comanda " +
-					"WHERE id = :id");
-            query.setParameter("id", comanda.getId());
+            Query query = session.createSQLQuery("DELETE FROM nota_de_plata " +
+											"WHERE id = :id");
+            query.setParameter("id", nota.getId());
             int result = query.executeUpdate();
 			transaction.commit();
 			session.flush();
 			System.out.println("Rows affected: " + result);
+			
         	
         } catch(Exception e) {
         	e.printStackTrace();
         } finally {
-        	session.close();
+        	session.close();        	
         }
 	}
 }
