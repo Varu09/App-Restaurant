@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import app.restaurant.dao.CustomerDao;
+import app.restaurant.model.Comanda;
 import app.restaurant.model.Customer;
+import app.restaurant.model.Masa;
 import app.restaurant.util.HibernateUtil;
 
 public class CustomerDaoImpl implements CustomerDao {
@@ -127,7 +129,10 @@ public class CustomerDaoImpl implements CustomerDao {
 		Session session = null;
         try {
             session = HibernateUtil.getInstance().getSession();
-            Query query = session.createQuery("from Customer c where c.nume = :nume and c.prenume = :prenume");
+            
+
+            Query query = session.createQuery("FROM Customer c "
+            							+ "WHERE c.nume = :nume AND c.prenume = :prenume");
             query.setParameter("nume", nume);
             query.setParameter("prenume", prenume);
  
@@ -144,5 +149,69 @@ public class CustomerDaoImpl implements CustomerDao {
             session.close();
         }
 		
+	}
+	
+	/**
+	 * Interogare simpla
+	 */
+	
+	public List<Object[]> simpleQuery(Customer client, Masa masa) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+            session = HibernateUtil.getInstance().getSession();
+            //transaction = session.beginTransaction();
+            
+			Query query = session.createSQLQuery("SELECT A.nume, A.prenume "
+					+ "FROM customer A "
+					+ "INNER JOIN masa M ON A.nr_masa = M.id "
+					+ "WHERE M.id = :id "					
+					+ "AND A.nr_masa = :nrMasa");
+			
+			query.setParameter("id", masa.getId());
+			query.setParameter("nrMasa", client.getNrMasa());			
+			result = query.list();
+			
+			//transaction.commit();
+            //session.flush();
+			//System.out.println("Rows affected: " + result);			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	/**
+	 * A doua interogare simpla
+	 */
+	
+	public List<Object[]> simpleQuery2(Customer client, Comanda comanda) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			Query query = session.createSQLQuery("SELECT A.nume, A.prenume, B.data "
+					+ "FROM customer A "
+					+ "INNER JOIN comanda B ON B.customer_id = A.id "
+					+ "WHERE B.customer_id = :clientId "
+					+ "AND A.id = :id");
+			query.setParameter("clientId", comanda.getClientId());
+			query.setParameter("id", client.getId());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
 	}
 }

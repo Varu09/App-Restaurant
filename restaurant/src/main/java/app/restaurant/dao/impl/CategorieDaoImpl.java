@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import app.restaurant.model.Categorie;
+import app.restaurant.model.Produs;
 import app.restaurant.util.HibernateUtil;
 import app.restaurant.dao.CategorieDao;
 
@@ -109,5 +110,34 @@ public class CategorieDaoImpl implements CategorieDao {
         	session.close();
         }
         
+	}
+	
+	/**
+	 * Interogare simpla
+	 */
+	
+	public List<Object[]> simpleQuery(Categorie categorie, Produs produs) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			Query query = session.createSQLQuery("SELECT C.denumire, P.nume "
+					+ "FROM produs P "
+					+ "INNER JOIN categorie C ON P.categorie_id = C.id "
+					+ "WHERE P.categorie_id = :categorieId "
+					+ "AND C.id = :id ");
+			query.setParameter("categorieId", produs.getCategorieId());
+			query.setParameter("id", categorie.getId());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
 	}
 }

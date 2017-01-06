@@ -45,9 +45,9 @@ public class App extends Application {
      * @param args
      */
     public static void main(String[] args) {
-        launch(args);   	
+        //launch(args);   	
     	
-    	//test();
+    	test();
 		
 		
     	
@@ -190,6 +190,21 @@ public class App extends Application {
 			
 				CategorieDao categorieDao = new CategorieDaoImpl();
 				Categorie categorie = new Categorie();
+				Produs produs = new Produs();
+				
+				//==================== JOIN ================================================
+				
+				categorie.setId(2);
+				produs.setCategorieId(2);
+				List<Object[]> result = categorieDao.simpleQuery(categorie, produs);
+				
+				
+				System.out.print(result.get(0)[0] + ": ");
+				System.out.print(result.get(0)[1]);
+				//System.out.println(result.get(1)[0]);
+				//System.out.println(result.get(1)[1]);
+				
+				//==========================================================================
 				
 				//categorie.setDenumire("Gratar");
 				//categorieDao.addCategorie(categorie);
@@ -231,9 +246,35 @@ public class App extends Application {
 		 
 		// Clienti
 				
-				CustomerDao clientDao = new CustomerDaoImpl();
-				
+				CustomerDao clientDao = new CustomerDaoImpl();				
 				Customer newClient = new Customer();
+				Masa masa = new Masa();
+				
+				//==================== JOIN ================================================
+				//masa.setId(2);
+				//newClient.setNrMasa(2);
+				//List<Object[]> cl = clientDao.simpleQuery(newClient, masa);
+				//cl.forEach(c -> System.out.println(c.getNume()));
+				//System.out.println(cl.size());
+				//cl.stream().map(c -> c.getNume()).forEach(System.out::println);
+				//System.out.println(cl.get(0)[0]);
+				//System.out.println(cl.get(0)[1]);
+				//System.out.println(cl.get(1)[0]);
+				//System.out.println(cl.get(1)[1]);
+				
+				//==========================================================================
+				
+				//==================== JOIN 2 ================================================
+				//Comanda comanda = new Comanda();
+				//newClient.setId(1);
+				//comanda.setClientId(1);
+				//List<Object[]> cl = clientDao.simpleQuery2(newClient,comanda);
+				//System.out.print(cl.get(0)[0] + " ");
+				//System.out.print(cl.get(0)[1] + ": ");
+				//System.out.print(cl.get(0)[2]);				
+				
+				//==========================================================================
+				
 				//newClient.setNume("Hamilton");
 				//newClient.setPrenume("John");
 				//newClient.setNrMasa(1);
@@ -246,10 +287,9 @@ public class App extends Application {
 				//clientDao.updateCustomer(newClient);			
 				
 				//newClient.setId(1);
-			    //clientDao.removeCustomer(newClient);
-			    
+			    //clientDao.removeCustomer(newClient);		    
 				
-				//List<Customer> clienti = clientDao.getCustomersByName("Vasile", "John");
+				//List<Customer> clienti = clientDao.getCustomersByName("Carol", "Alfred");
 				
 				//clienti.stream().map(c -> c.getNume()).forEach(System.out::println);
 		==================================================================================================== */

@@ -1,18 +1,30 @@
 package app.restaurant.client;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import app.restaurant.util.Constants;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class MenuController extends AnchorPane {
+public class MenuController extends AnchorPane implements Initializable {
 	private Stage primaryStage;
     private BorderPane rootLayout;
+    
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	public void start() {
 
@@ -56,8 +68,11 @@ public class MenuController extends AnchorPane {
 		System.out.println("Asta e comanda...");
 	}
 	
-	public void showProduse(ActionEvent event) {
+	@FXML
+	public void showProduse(ActionEvent event)  {
 		System.out.println("Astea sunt produsele...");
+		
+		
 	}
 	
 	public void showIstoric(ActionEvent event) {
