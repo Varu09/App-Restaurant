@@ -45,9 +45,9 @@ public class App extends Application {
      * @param args
      */
     public static void main(String[] args) {
-        //launch(args);   	
+        launch(args);   	
     	
-    	test();
+    	//test();
 		
 		
     	
@@ -263,7 +263,7 @@ public class App extends Application {
 				//categorii.stream().map(m -> m.getDenumire()).forEach(System.out::println);
 		
 		   ====================================================================================================*/
-		///* ====================================================================================================
+		/* ====================================================================================================
 		// Masa
 				MasaDao masaDao = new MasaDaoImpl();
 				Masa masa = new Masa();
@@ -274,9 +274,10 @@ public class App extends Application {
 				  List<Object[]> result = masaDao.complexQuery(masa);
 				  System.out.print(result.get(0)[0] + " ");
 				  System.out.print(result.get(0)[1] + " ");
-				  System.out.print(result.get(0)[2] + " ");
+				  System.out.println(result.get(0)[2] + " ");
 				  System.out.print(result.get(1)[0] + " ");
 				  System.out.print(result.get(1)[1] + " ");
+				  System.out.print(result.get(1)[2] + " ");
 				
 				//==========================================================================
 				 
@@ -297,7 +298,7 @@ public class App extends Application {
 				//List<Masa> mese = masaDao.getTables();
 
 				//mese.stream().map(m -> m.getNrLocuri()).forEach(System.out::println);
-			//====================================================================================================*/	
+			====================================================================================================*/	
 			
 		/* ====================================================================================================
 		 

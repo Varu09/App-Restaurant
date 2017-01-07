@@ -147,9 +147,9 @@ public class MasaDaoImpl implements MasaDao{
 					+ "INNER JOIN comanda CM ON C.id = CM.customer_id "
 					+ "INNER JOIN istoric_comenzi IC ON CM.id = IC.comanda_id "
 					+ "INNER JOIN  produs P ON IC.produs_id = P.id "
-					+ "WHERE M.id = 2 ");
+					+ "WHERE M.id = :id ");
 			
-			//query.setParameter("id", masa.getId());
+			query.setParameter("id", masa.getId());
 			result = query.list();
 			
 		} catch(Exception e) {

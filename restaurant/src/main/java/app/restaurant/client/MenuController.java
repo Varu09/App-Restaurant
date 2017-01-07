@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.restaurant.util.ClientUtil;
 import app.restaurant.util.Constants;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,11 +70,13 @@ public class MenuController extends AnchorPane implements Initializable {
 	}
 	
 	@FXML
-	public void showProduse(ActionEvent event)  {
-		System.out.println("Astea sunt produsele...");
+	public void showProduse(ActionEvent event) throws IOException  {
 		
-		
+		URL location = getClass().getClassLoader().getResource(Constants.PRODUSE_FXML);
+        ClientUtil.showWindow(location, event);
 	}
+	
+	
 	
 	public void showIstoric(ActionEvent event) {
 		System.out.println("Asta e istoricul...");
