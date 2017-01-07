@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import app.restaurant.dao.IstoricComenziDao;
 import app.restaurant.model.IstoricComenzi;
+import app.restaurant.model.Produs;
 import app.restaurant.util.HibernateUtil;
 
 public class IstoricComenziDaoImpl implements IstoricComenziDao{
@@ -88,6 +89,36 @@ public class IstoricComenziDaoImpl implements IstoricComenziDao{
         } finally {
         	session.close();  
         }
+	}
+	
+	/**
+	 * Interogare simpla
+	 */
+	public List<Object[]> simpleQuery(IstoricComenzi istoric, Produs produs) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			Query query = session.createSQLQuery("SELECT A.nume, A.pret, A.gramaj "
+					+ "FROM produs A "
+					+ "INNER JOIN istoric_comenzi B ON A.id = B.produs_id "
+					+ "WHERE A.id = :id "
+					+ "AND produs_id = :produsId");
+			
+			query.setParameter("id", produs.getId());
+			query.setParameter("produsId", istoric.getProdusId());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
 	}
 
 }

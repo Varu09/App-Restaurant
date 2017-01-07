@@ -117,6 +117,20 @@ public class App extends Application {
 		IstoricComenziDao istoricDao = new IstoricComenziDaoImpl();
 		IstoricComenzi istoric = new IstoricComenzi();
 		
+		//==================== JOIN ================================================
+				Produs produs = new Produs();
+				
+				produs.setId(4);
+				istoric.setProdusId(4);
+				List<Object[]> result = istoricDao.simpleQuery(istoric, produs);				
+				
+				System.out.print(result.get(0)[0] + " ");
+				System.out.print(result.get(0)[1] + " ");
+				System.out.print(result.get(0)[2]);
+				
+				
+		//===========================================================================
+		
 		//istoric.setComandaId(1);
 		//istoric.setProdusId(3);
 		//istoricDao.addIstoricComenzi(istoric);
@@ -129,7 +143,22 @@ public class App extends Application {
 		//NotaDePlata
 		  
 		NotaDePlataDao notaDao = new NotaDePlataDaoImpl();
-		NotaDePlata nota = new NotaDePlata();
+		NotaDePlata nota = new NotaDePlata();		
+		
+		//==================== JOIN ================================================
+				Masa masa = new Masa();
+				
+				masa.setId(2);
+				nota.setNrMasa(2);
+				List<Object[]> result = notaDao.simpleQuery(nota, masa);
+				
+				
+				System.out.print(result.get(0)[0] + " ");
+				System.out.print(result.get(0)[1] + " ");
+				System.out.print(result.get(0)[2]);
+				
+				
+		//===========================================================================
 		
 		//nota.setGramajTotal(600);
 		//nota.setNrMasa(2);
@@ -142,10 +171,11 @@ public class App extends Application {
 		//notaDao.updateNota(nota);
 		
 		//notaDao.removeNota(nota);
-		====================================================================================================*/
+	     ====================================================================================================*/
 		
 		/* ====================================================================================================
 		//Produs
+		 
 		ProdusDao produsDao = new ProdusDaoImpl();
 		Produs produs = new Produs();
 		
@@ -174,6 +204,19 @@ public class App extends Application {
 		ComandaDao comandaDao = new ComandaDaoImpl();
 		Comanda comanda = new Comanda();
 		
+		//==================== JOIN ================================================
+				IstoricComenzi istoric = new IstoricComenzi();
+				
+				comanda.setId(1);
+				istoric.setComandaId(1);
+				List<Object[]> result = comandaDao.simpleQuery(comanda, istoric); 				
+				
+				System.out.print(result.get(0));
+			
+				
+				
+		//=========================================================================
+		
 		//comanda.setClientId(2);
 		//comanda.setData("2016-09-23 13:54:25");
 		//comandaDao.addComanda(comanda);
@@ -183,6 +226,7 @@ public class App extends Application {
 		//comandaDao.updateComanda(comanda);
 		
 		//comandaDao.removeComanda(comanda);
+		 
 		====================================================================================================*/
 		
 		/*====================================================================================================
@@ -219,10 +263,23 @@ public class App extends Application {
 				//categorii.stream().map(m -> m.getDenumire()).forEach(System.out::println);
 		
 		   ====================================================================================================*/
-		/* ====================================================================================================
+		///* ====================================================================================================
 		// Masa
 				MasaDao masaDao = new MasaDaoImpl();
 				Masa masa = new Masa();
+				
+				//==================== COMPLEX QUERY ================================================
+				  
+				  masa.setId(2);
+				  List<Object[]> result = masaDao.complexQuery(masa);
+				  System.out.print(result.get(0)[0] + " ");
+				  System.out.print(result.get(0)[1] + " ");
+				  System.out.print(result.get(0)[2] + " ");
+				  System.out.print(result.get(1)[0] + " ");
+				  System.out.print(result.get(1)[1] + " ");
+				
+				//==========================================================================
+				 
 				//masa.setNrLocuri(10);
 				//masaDao.addTable(masa);
 				
@@ -237,10 +294,10 @@ public class App extends Application {
 				
 				//newTable.setNrLocuri(7);
 				//masaDao.updateTable(newTable);
-				List<Masa> mese = masaDao.getTables();
+				//List<Masa> mese = masaDao.getTables();
 
-				mese.stream().map(m -> m.getNrLocuri()).forEach(System.out::println);
-			====================================================================================================*/	
+				//mese.stream().map(m -> m.getNrLocuri()).forEach(System.out::println);
+			//====================================================================================================*/	
 			
 		/* ====================================================================================================
 		 
@@ -272,6 +329,15 @@ public class App extends Application {
 				//System.out.print(cl.get(0)[0] + " ");
 				//System.out.print(cl.get(0)[1] + ": ");
 				//System.out.print(cl.get(0)[2]);				
+				
+				//==========================================================================
+				 
+			    //==================== COMPLEX QUERY ================================================
+				  //Comanda comanda = new Comanda();				  
+				  //comanda.setData("2017-01-01 02:20:00");
+				  //List<Object[]> result = clientDao.complexQuery(newClient, comanda);
+				  //System.out.print(result.get(0)[0] + " ");
+				  //System.out.print(result.get(0)[1] + " ");				
 				
 				//==========================================================================
 				

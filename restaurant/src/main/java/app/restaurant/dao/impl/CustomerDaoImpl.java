@@ -197,14 +197,46 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		try {
 			session = HibernateUtil.getInstance().getSession();
+			
 			Query query = session.createSQLQuery("SELECT A.nume, A.prenume, B.data "
 					+ "FROM customer A "
 					+ "INNER JOIN comanda B ON B.customer_id = A.id "
 					+ "WHERE B.customer_id = :clientId "
 					+ "AND A.id = :id");
+			
 			query.setParameter("clientId", comanda.getClientId());
 			query.setParameter("id", client.getId());
 			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Interogare COMPLEXA
+	 */
+	public List<Object[]> complexQuery(Customer client, Comanda comanda) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT nume, prenume "
+					+ "FROM customer "
+					+ "WHERE id IN "
+					+ "(SELECT customer_id "
+					+ "FROM comanda "
+					+ "WHERE data = :data)");
+			
+			query.setParameter("data", comanda.getData());
+			result = query.list();			
 			
 		} catch(Exception e) {
 			e.printStackTrace();

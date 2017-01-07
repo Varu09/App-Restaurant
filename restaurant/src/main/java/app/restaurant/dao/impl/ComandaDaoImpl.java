@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import app.restaurant.dao.ComandaDao;
 import app.restaurant.model.Comanda;
+import app.restaurant.model.IstoricComenzi;
 import app.restaurant.util.HibernateUtil;
 
 public class ComandaDaoImpl implements ComandaDao {
@@ -113,5 +114,36 @@ public class ComandaDaoImpl implements ComandaDao {
         } finally {
         	session.close();
         }
+	}
+	
+	/**
+	 * Interogare simpla
+	 */
+	public List<Object[]> simpleQuery(Comanda comanda, IstoricComenzi istoric) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT A.data "
+					+ "FROM comanda A "
+					+ "INNER JOIN istoric_comenzi B ON A.id = B.comanda_id "
+					+ "WHERE A.id = :id "
+					+ "AND B.comanda_id = :comandaId");
+			
+			query.setParameter("id", comanda.getId());
+			query.setParameter("comandaId", istoric.getComandaId());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
 	}
 }

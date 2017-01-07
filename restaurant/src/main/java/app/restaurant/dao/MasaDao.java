@@ -10,5 +10,6 @@ public interface MasaDao {
 	public void addTable(Masa masa);
 	public void updateTable(Masa masa);
 	public void removeTable(Masa masa);
+	public List<Object[]> complexQuery(Masa masa);
 	
 }

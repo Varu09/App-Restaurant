@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import app.restaurant.dao.NotaDePlataDao;
+import app.restaurant.model.Masa;
 import app.restaurant.model.NotaDePlata;
 import app.restaurant.util.HibernateUtil;
 
@@ -114,5 +115,37 @@ public class NotaDePlataDaoImpl implements NotaDePlataDao {
         } finally {
         	session.close();        	
         }
+	}
+	
+	/**
+	 * Interogare simpla
+	 */
+	public List<Object[]> simpleQuery(NotaDePlata nota, Masa masa) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT A.nr_masa, A.gramaj_total, A.pret_total "
+					+ "FROM nota_de_plata A "
+					+ "INNER JOIN masa B ON A.nr_masa = B.id "
+					+ "WHERE A.nr_masa = :nrMasa "
+					+ "AND B.id = :id ");
+			
+			query.setParameter("nrMasa", nota.getNrMasa());
+			query.setParameter("id", masa.getId());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			session.close();
+		}
+		
+		return result;
 	}
 }

@@ -7,5 +7,5 @@ public interface ProdusDao {
 	public List<Produs> getProduse();
 	public void addProdus(Produs produs);
 	public void updateProdus(Produs produs);
-	public void removeProdus(Produs produs);
+	public void removeProdus(Produs produs);	
 }

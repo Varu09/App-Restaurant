@@ -15,4 +15,5 @@ public interface CustomerDao {
 	public List<Customer> getCustomersByName(String nume, String prenume);
 	public List<Object[]> simpleQuery(Customer client, Masa masa);
 	public List<Object[]> simpleQuery2(Customer client, Comanda comanda);
+	public List<Object[]> complexQuery(Customer client, Comanda comanda);
 }

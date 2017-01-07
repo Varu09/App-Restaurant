@@ -128,4 +128,36 @@ public class MasaDaoImpl implements MasaDao{
 			session.close();
 		}
 	}
+	
+	/**
+	 * Interogare COMPLEXA
+	 */
+	
+	public List<Object[]> complexQuery(Masa masa) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT M.id, P.nume, P.gramaj "
+					+ "FROM masa M "
+					+ "INNER JOIN customer C ON C.nr_masa = M.id "
+					+ "INNER JOIN comanda CM ON C.id = CM.customer_id "
+					+ "INNER JOIN istoric_comenzi IC ON CM.id = IC.comanda_id "
+					+ "INNER JOIN  produs P ON IC.produs_id = P.id "
+					+ "WHERE M.id = 2 ");
+			
+			//query.setParameter("id", masa.getId());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
 }
