@@ -10,4 +10,5 @@ public interface CategorieDao {
 	public void updateCategorie(Categorie categorie);
 	public void removeCategorie(Categorie categorie);
 	public List<Object[]> simpleQuery(Categorie categorie, Produs produs);
+	public List<Object[]> complexQuery(Produs produs);
 }

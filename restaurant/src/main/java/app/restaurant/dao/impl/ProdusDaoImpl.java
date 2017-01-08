@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import app.restaurant.dao.ProdusDao;
+import app.restaurant.model.Categorie;
 import app.restaurant.model.Produs;
 import app.restaurant.util.HibernateUtil;
 
@@ -122,5 +123,34 @@ public class ProdusDaoImpl implements ProdusDao{
         } finally {
         	session.close();  
         }
+	}
+	
+	/**
+	 * Interogare COMPLEXA
+	 */
+	public List<Object[]> complexQuery(Categorie categorie) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT  P.nume, P.pret "
+					+ "FROM produs P "
+					+ "WHERE P.id IN (SELECT categorie_id "
+					+ 				 "FROM categorie "
+					+ 				 "WHERE denumire = :denumire) ");
+			
+			query.setParameter("denumire", categorie.getDenumire());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
 	}
 }

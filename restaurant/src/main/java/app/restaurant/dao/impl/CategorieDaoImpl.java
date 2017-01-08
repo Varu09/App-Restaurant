@@ -140,4 +140,33 @@ public class CategorieDaoImpl implements CategorieDao {
 		
 		return result;
 	}
+	
+	/**
+	 * Interogare complexa
+	 */	
+	public List<Object[]> complexQuery(Produs produs) {
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT denumire "
+					+ "FROM categorie "
+					+ "WHERE id IN (SELECT categorie_id "
+					+ 			   "FROM produs "
+					+ 			   "WHERE gramaj = :gramaj) ");
+			
+			query.setParameter("gramaj", produs.getGramaj());
+			result = query.list();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
 }

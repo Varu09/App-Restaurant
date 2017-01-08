@@ -146,19 +146,28 @@ public class App extends Application {
 		NotaDePlata nota = new NotaDePlata();		
 		
 		//==================== JOIN ================================================
-				Masa masa = new Masa();
+				//Masa masa = new Masa();
 				
-				masa.setId(2);
-				nota.setNrMasa(2);
-				List<Object[]> result = notaDao.simpleQuery(nota, masa);
-				
-				
-				System.out.print(result.get(0)[0] + " ");
-				System.out.print(result.get(0)[1] + " ");
-				System.out.print(result.get(0)[2]);
+				//masa.setId(2);
+				//nota.setNrMasa(2);
+				//List<Object[]> result = notaDao.simpleQuery(nota, masa);			
+				//System.out.print(result.get(0)[0] + " ");
+				//System.out.print(result.get(0)[1] + " ");
+				//System.out.print(result.get(0)[2]);
 				
 				
 		//===========================================================================
+		 
+		//==================== COMPLEX QUERY ================================================
+		  //Comanda comanda = new Comanda();
+		
+		  //comanda.setData("2017-01-01 02:20:00");
+		  //List<Object[]> result = notaDao.complexQuery(comanda);
+		  //System.out.print(result.get(0)[0] + " ");
+		  //System.out.print(result.get(0)[1] + " ");
+		  //System.out.print(result.get(0)[2] + " ");
+		  
+		//====================================================================================
 		
 		//nota.setGramajTotal(600);
 		//nota.setNrMasa(2);
@@ -179,6 +188,16 @@ public class App extends Application {
 		ProdusDao produsDao = new ProdusDaoImpl();
 		Produs produs = new Produs();
 		
+		//==================== COMPLEX QUERY ================================================
+		  Categorie categorie = new Categorie();
+		  
+		  categorie.setDenumire("Preparate reci");
+		  List<Object[]> result = produsDao.complexQuery(categorie);
+		  System.out.print(result.get(0)[0] + " ");
+		  System.out.print(result.get(0)[1] + " ");
+		  
+		//====================================================================================
+		
 		//produs.setCategorieId(3);
 		//produs.setNume("Ceafa de porc");
 		//produs.setPret(15);
@@ -196,7 +215,7 @@ public class App extends Application {
 		//List<Produs> produse = produsDao.getProduse();
 		//produse.stream().map(p -> p.getNume()).forEach(System.out::println);
 		
-		====================================================================================================*/
+		//====================================================================================================*/
 		
 		/* ====================================================================================================
 		//Comanda
@@ -234,19 +253,28 @@ public class App extends Application {
 			
 				CategorieDao categorieDao = new CategorieDaoImpl();
 				Categorie categorie = new Categorie();
-				Produs produs = new Produs();
+				
 				
 				//==================== JOIN ================================================
 				
-				categorie.setId(2);
-				produs.setCategorieId(2);
-				List<Object[]> result = categorieDao.simpleQuery(categorie, produs);
+				//categorie.setId(2);
+				//produs.setCategorieId(2);
+				//List<Object[]> result = categorieDao.simpleQuery(categorie, produs);			
 				
-				
-				System.out.print(result.get(0)[0] + ": ");
-				System.out.print(result.get(0)[1]);
+				//System.out.print(result.get(0)[0] + ": ");
+				//System.out.print(result.get(0)[1]);
 				//System.out.println(result.get(1)[0]);
 				//System.out.println(result.get(1)[1]);
+				
+				//==========================================================================
+				
+				//==================== COMPLEX QUERY ================================================
+				  //Produs produs = new Produs();
+				  
+				  //produs.setGramaj(500);				  
+				  //List<Object[]> result = categorieDao.complexQuery(produs);
+				  //System.out.print(result.get(0) + " ");
+				  
 				
 				//==========================================================================
 				
@@ -263,6 +291,7 @@ public class App extends Application {
 				//categorii.stream().map(m -> m.getDenumire()).forEach(System.out::println);
 		
 		   ====================================================================================================*/
+				  
 		/* ====================================================================================================
 		// Masa
 				MasaDao masaDao = new MasaDaoImpl();

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import app.restaurant.dao.NotaDePlataDao;
+import app.restaurant.model.Comanda;
 import app.restaurant.model.Masa;
 import app.restaurant.model.NotaDePlata;
 import app.restaurant.util.HibernateUtil;
@@ -142,6 +143,36 @@ public class NotaDePlataDaoImpl implements NotaDePlataDao {
 		} catch(Exception e) {
 			e.printStackTrace();
 			
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
+	
+	/** 
+	 * Interogare COMPLEXA
+	 */
+	public List<Object[]> complexQuery(Comanda comanda) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		List<Object[]> result = null;
+		
+		try {
+			session = HibernateUtil.getInstance().getSession();
+			
+			Query query = session.createSQLQuery("SELECT nr_masa, gramaj_total, pret_total "
+					+ "FROM nota_de_plata "
+					+ "WHERE id IN (SELECT id "
+					+ 			   "FROM comanda "
+					+ 			   "WHERE data = :data) ");
+			
+			query.setParameter("data", comanda.getData());
+			result = query.list();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 			session.close();
 		}
