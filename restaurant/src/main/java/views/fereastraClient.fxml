@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurant.client.ClientController">
+   <children>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="432.0" prefWidth="664.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="textLabel" alignment="CENTER" layoutX="150.0" layoutY="32.0" prefHeight="154.0" prefWidth="367.0" text="Selectati o comanda" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button layoutX="58.0" layoutY="31.0" mnemonicParsing="false" onAction="#adaugaClient" prefHeight="66.0" prefWidth="128.0" text="Adauga Client" />
+                  <Button layoutX="204.0" layoutY="31.0" mnemonicParsing="false" onAction="#stergeClient" prefHeight="66.0" prefWidth="128.0" text="Sterge Client" />
+                  <Button layoutX="344.0" layoutY="31.0" mnemonicParsing="false" onAction="#updateClient" prefHeight="66.0" prefWidth="128.0" text="Update" />
+                  <Button layoutX="204.0" layoutY="112.0" mnemonicParsing="false" onAction="#querySimpleButton1" prefHeight="66.0" prefWidth="128.0" text="Query simplu 1" />
+                  <Button layoutX="528.0" layoutY="158.0" mnemonicParsing="false" onAction="#backButton" prefHeight="40.0" prefWidth="114.0" text="Inapoi la meniu" />
+                  <Button layoutX="344.0" layoutY="112.0" mnemonicParsing="false" onAction="#querySimpleButton2" prefHeight="66.0" prefWidth="128.0" text="Query simplu 2" />
+                  <Button layoutX="486.0" layoutY="31.0" mnemonicParsing="false" onAction="#queryComplexButton" prefHeight="66.0" prefWidth="128.0" text="Query complex" />
+                  <Button layoutX="58.0" layoutY="112.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="128.0" text="Afisare clienti" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

@@ -17,7 +17,7 @@ public class ClientUtil  extends AnchorPane {
         try {
             root = FXMLLoader.load(location);
             Stage stage = new Stage();
-            stage.setTitle("My New Stage Title");
+            //stage.setTitle("My New Stage Title");
             stage.setScene(new Scene(root));
             stage.show();
             // Hide this current window (if this is what you want)

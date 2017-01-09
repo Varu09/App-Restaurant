@@ -189,12 +189,12 @@ public class App extends Application {
 		Produs produs = new Produs();
 		
 		//==================== COMPLEX QUERY ================================================
-		  Categorie categorie = new Categorie();
+		  //Categorie categorie = new Categorie();
 		  
-		  categorie.setDenumire("Preparate reci");
-		  List<Object[]> result = produsDao.complexQuery(categorie);
-		  System.out.print(result.get(0)[0] + " ");
-		  System.out.print(result.get(0)[1] + " ");
+		  //categorie.setDenumire("Preparate reci");
+		  //List<Object[]> result = produsDao.complexQuery(categorie);
+		  //System.out.print(result.get(0)[0] + " ");
+		  //System.out.print(result.get(0)[1] + " ");
 		  
 		//====================================================================================
 		

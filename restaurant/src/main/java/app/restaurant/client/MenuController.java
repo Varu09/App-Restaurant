@@ -61,12 +61,19 @@ public class MenuController extends AnchorPane implements Initializable {
 	/**
 	 * Metodele de pe butoanele meniului principal
 	 */
-	public void showClient(ActionEvent event) {
-		System.out.println("Asta e clientul...");
+	
+	@FXML
+	public void showClient(ActionEvent event) throws IOException {
+		
+		URL location = getClass().getClassLoader().getResource(Constants.CLIENT_FXML);
+		ClientUtil.showWindow(location, event);	
 	}
 	
-	public void showComanda(ActionEvent event) {
-		System.out.println("Asta e comanda...");
+	@FXML
+	public void showComanda(ActionEvent event) throws IOException {
+		
+		URL location = getClass().getClassLoader().getResource(Constants.COMANDA_FXML);
+		ClientUtil.showWindow(location, event);		
 	}
 	
 	@FXML
@@ -74,11 +81,12 @@ public class MenuController extends AnchorPane implements Initializable {
 		
 		URL location = getClass().getClassLoader().getResource(Constants.PRODUSE_FXML);
         ClientUtil.showWindow(location, event);
-	}
+	}	
 	
-	
-	
+	@FXML
 	public void showIstoric(ActionEvent event) {
-		System.out.println("Asta e istoricul...");
+		
+		URL location = getClass().getClassLoader().getResource(Constants.ISTORIC_FXML);
+        ClientUtil.showWindow(location, event);
 	}
 }
