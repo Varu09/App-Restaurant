@@ -14,7 +14,7 @@ import app.restaurant.util.HibernateUtil;
 
 public class CustomerDaoImpl implements CustomerDao {
 	
-	public List<Customer> getCustomer() {
+	public List<Customer> getCustomers() {
 		List<Customer> clienti = null;		
         Session session = null;
         Transaction transaction = null;

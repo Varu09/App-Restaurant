@@ -8,7 +8,7 @@ import app.restaurant.model.Customer;
 
 
 public interface CustomerDao {
-	public List<Customer> getCustomer();
+	public List<Customer> getCustomers();
 	public void addCustomer(Customer client);
 	public void updateCustomer(Customer client);
 	public void removeCustomer(Customer client);
