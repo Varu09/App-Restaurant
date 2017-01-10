@@ -126,7 +126,7 @@ public class ClientController extends AnchorPane implements Initializable {
 	}
 	
 	@FXML
-	public void afis(ActionEvent event) {
+	public void afisClienti(ActionEvent event) {
 		
 		CustomerDao clientDao = new CustomerDaoImpl();				
 		
@@ -136,8 +136,9 @@ public class ClientController extends AnchorPane implements Initializable {
 		for(Customer client: clienti){
 			clientsList += client.display();			
 		}
-		
-		textArea.setText(clientsList);
+		textArea.setText("Nume" + ClientUtil.TAB + "Prenume" + ClientUtil.TAB + "Numarul mesei \n"
+						+ "\n" 
+						+ clientsList);
 		
 	}
 	

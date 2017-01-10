@@ -16,7 +16,7 @@ public class ComandaDaoImpl implements ComandaDao {
 	/**
 	 * AFISARE
 	 */
-	public List<Comanda> getComanda() {
+	public List<Comanda> getComenzi() {
 		
 		List<Comanda> comenzi = null;
 		Session session = null;

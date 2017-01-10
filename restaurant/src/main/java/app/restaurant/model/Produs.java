@@ -1,5 +1,6 @@
 package app.restaurant.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import app.restaurant.util.ClientUtil;
 
 @Entity
 @Table(name = "produs")
@@ -70,6 +73,11 @@ public class Produs implements Serializable {
 
 	public void setGramaj(int gramaj) {
 		this.gramaj = gramaj;
+	}
+	
+	//@Transient
+	public String display() {
+		return categorieId + ClientUtil.TAB + nume + ClientUtil.TAB + pret + " lei " + ClientUtil.TAB + gramaj + " g " + "\n";
 	}
 	
 	

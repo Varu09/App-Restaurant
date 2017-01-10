@@ -1,5 +1,6 @@
 package app.restaurant.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -47,5 +48,10 @@ public class Comanda implements Serializable {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+	
+	@Transient
+	public String display() {
+		return data;
 	}
 }
