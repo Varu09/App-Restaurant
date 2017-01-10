@@ -89,4 +89,27 @@ public class MenuController extends AnchorPane implements Initializable {
 		URL location = getClass().getClassLoader().getResource(Constants.ISTORIC_FXML);
         ClientUtil.showWindow(location, event);
 	}
+	
+	@FXML
+	public void showMese(ActionEvent event) {
+		
+		URL location = getClass().getClassLoader().getResource(Constants.MESE_FXML);
+		ClientUtil.showWindow(location, event);
+	}
+	
+	@FXML
+	public void showCategorii(ActionEvent event) {
+		
+		
+	}
+	
+	@FXML
+	public void showChitante(ActionEvent event) {
+		
+	}
+	
+	@FXML
+	public void exitButton(ActionEvent event) {		
+		System.exit(0);
+	}
 }

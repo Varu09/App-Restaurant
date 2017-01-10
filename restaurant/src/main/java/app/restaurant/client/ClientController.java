@@ -136,7 +136,7 @@ public class ClientController extends AnchorPane implements Initializable {
 		for(Customer client: clienti){
 			clientsList += client.display();			
 		}
-		textArea.setText("Nume" + ClientUtil.TAB + "Prenume" + ClientUtil.TAB + "Numarul mesei \n"
+		textArea.setText("Nume" + Constants.TAB + "Prenume" + Constants.TAB + "Numarul mesei \n"
 						+ "\n" 
 						+ clientsList);
 		

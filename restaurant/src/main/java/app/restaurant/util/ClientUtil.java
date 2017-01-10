@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class ClientUtil  extends AnchorPane {
 	
-	public static final String TAB ="      |      "; 
+	 
 	
 	public static void showWindow(URL location, ActionEvent event){
 		Parent root;

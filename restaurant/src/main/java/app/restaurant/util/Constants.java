@@ -1,6 +1,7 @@
 package app.restaurant.util;
 
 public class Constants {
+	public static final String TAB ="      |      ";
 	public static final String APPLICATION_NAME = "Meniu";
 	public static final String FXML_PATH = "views/";
 	public static final String ROOT_FXML = FXML_PATH + "root.fxml";
@@ -9,5 +10,9 @@ public class Constants {
 	public static final String COMANDA_FXML = FXML_PATH + "fereastraComanda.fxml";
 	public static final String CLIENT_FXML = FXML_PATH + "fereastraClient.fxml";
 	public static final String ISTORIC_FXML = FXML_PATH + "fereastraIstoric.fxml";
+	public static final String MESE_FXML = FXML_PATH + "fereastraMese.fxml";
+	public static final String CATEGORII_FXML = FXML_PATH + "fereastraCategorii.fxml";
+	public static final String CHITANTE_FXML = FXML_PATH + "fereastraChitante.fxml";
+	
 	
 }

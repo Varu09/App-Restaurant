@@ -110,7 +110,7 @@ public class ProduseController extends AnchorPane implements Initializable {
 			produseList += produs.display();
 			System.out.println(produseList);
 		}
-		textArea.setText("Numarul categoriei" + ClientUtil.TAB + "Denumire" + ClientUtil.TAB + "Pret" + ClientUtil.TAB + "Gramaj" 
+		textArea.setText("Numarul categoriei" + Constants.TAB + "Denumire" + Constants.TAB + "Pret" + Constants.TAB + "Gramaj" 
 						+ "\n" 
 						+ produseList);
 	}

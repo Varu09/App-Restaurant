@@ -70,7 +70,7 @@ public class Customer implements Serializable {
 	
 	@Transient
 	public String display() {
-		return nume + ClientUtil.TAB + prenume + ClientUtil.TAB + nrMasa + "\n";
+		return nume + Constants.TAB + prenume + Constants.TAB + nrMasa + "\n";
 	}
 	
 	

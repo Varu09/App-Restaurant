@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import app.restaurant.util.ClientUtil;
+import app.restaurant.util.Constants;
 
 @Entity
 @Table(name = "produs")
@@ -77,7 +78,7 @@ public class Produs implements Serializable {
 	
 	//@Transient
 	public String display() {
-		return categorieId + ClientUtil.TAB + nume + ClientUtil.TAB + pret + " lei " + ClientUtil.TAB + gramaj + " g " + "\n";
+		return categorieId + Constants.TAB + nume + Constants.TAB + pret + " lei " + Constants.TAB + gramaj + " g " + "\n";
 	}
 	
 	
