@@ -100,12 +100,15 @@ public class MenuController extends AnchorPane implements Initializable {
 	@FXML
 	public void showCategorii(ActionEvent event) {
 		
-		
+		URL location = getClass().getClassLoader().getResource(Constants.CATEGORII_FXML);
+		ClientUtil.showWindow(location, event);
 	}
 	
 	@FXML
 	public void showChitante(ActionEvent event) {
 		
+		URL location = getClass().getClassLoader().getResource(Constants.CHITANTE_FXML);
+		ClientUtil.showWindow(location, event);
 	}
 	
 	@FXML

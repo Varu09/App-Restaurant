@@ -66,8 +66,8 @@ public class ClientController extends AnchorPane implements Initializable {
 		Customer client = new Customer();
 		
 		client.setId(3);
-		client.setNume("Yamamoto");
-		client.setPrenume("Gengryusai");
+		client.setNume("Gica");
+		client.setPrenume("Petrescu");
 		client.setNrMasa(2);
 		clientDao.updateCustomer(client);
 		

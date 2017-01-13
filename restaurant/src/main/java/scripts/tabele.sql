@@ -1,15 +1,15 @@
-drop database if exists `restaurant`;
+-- drop database if exists `restaurant`;
 create database restaurant;
 use restaurant;
 
-drop table if exists `masa`;
+-- drop table if exists `masa`;
 create table masa (
 	id int not null auto_increment,
     nr_locuri int not null default 2,
     primary key(id)   
 );
 
-drop table  if exists `customer`;
+-- drop table  if exists `customer`;
 create table customer (
 	id int not null auto_increment,
     nume varchar(20) not null,
@@ -19,7 +19,7 @@ create table customer (
 	foreign key(nr_masa) references masa(id)    
    );
    
-drop table  if exists `comanda`;
+-- drop table  if exists `comanda`;
 create table comanda (
 	id int not null auto_increment,
     customer_id int not null,
@@ -28,7 +28,7 @@ create table comanda (
     foreign key(customer_id) references customer(id)
 ); 
   
-drop table  if exists `nota_de_plata`;
+-- drop table  if exists `nota_de_plata`;
 create table nota_de_plata (
 	id int not null auto_increment,
 	nr_masa int not null,
@@ -38,14 +38,14 @@ create table nota_de_plata (
     foreign key(nr_masa) references masa(id)
 );
 
-drop table if exists `categorie`;
+-- drop table if exists `categorie`;
 create table categorie (
 	id int not null auto_increment,
     denumire varchar(40),
     primary key(id)
 );
 
-drop table if exists `produs`;
+-- drop table if exists `produs`;
 create table produs (
 	id int not null auto_increment,
     categorie_id int not null,
@@ -56,7 +56,7 @@ create table produs (
     foreign key(categorie_id) references categorie(id)
 );
 
-drop table if exists `istoric_comenzi`;
+-- drop table if exists `istoric_comenzi`;
 create table istoric_comenzi (
 	id int not null auto_increment,
     comanda_id int not null,
