@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -22,6 +23,15 @@ public class IstoricController extends AnchorPane implements Initializable {
 	
 	@FXML
 	private TextArea textArea;
+	
+	@FXML
+	private TextField textField1;
+	
+	@FXML
+	private TextField textField2;
+	
+	@FXML
+	private TextField textField3;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -35,9 +45,9 @@ public class IstoricController extends AnchorPane implements Initializable {
 		IstoricComenziDao istoricDao = new IstoricComenziDaoImpl();
 		IstoricComenzi istoric = new IstoricComenzi();
 		
-		istoric.setComandaId(2);
-		istoric.setProdusId(3);
-		istoricDao.addIstoricComenzi(istoric);
+		istoric.setComandaId(Integer.parseInt(textField1.getText()));
+		istoric.setProdusId(Integer.parseInt(textField2.getText()));
+		istoricDao.addIstoricComenzi(istoric); 
 		textArea.setText("A fost adaugata o noua comanda in istoric: \n"
 				+ "Numarul comenzii: " + istoric.getComandaId() + "\n"
 				+ "Numarul produsului: " + istoric.getProdusId() + "\n");
@@ -49,7 +59,7 @@ public class IstoricController extends AnchorPane implements Initializable {
 		IstoricComenziDao istoricDao = new IstoricComenziDaoImpl();
 		IstoricComenzi istoric = new IstoricComenzi();
 		
-		istoric.setId(3);
+		istoric.setId(Integer.parseInt(textField3.getText()));
 		istoricDao.removeIstoricComenzi(istoric);
 		textArea.setText("A fost sters din istoric comanda cu numarul : " + istoric.getId());
 	}
@@ -65,9 +75,39 @@ public class IstoricController extends AnchorPane implements Initializable {
 		produs.setId(4);
 		istoric.setProdusId(4);
 		List<Object[]> result = istoricDao.simpleQuery(istoric, produs);				
-		textArea.setText("Rezultatul query-ului este : \n"
-				+ result.get(0)[0] + " " + result.get(0)[1] + " " + result.get(0)[2]);
+		textArea.setText("SELECT A.nume, A.pret, A.gramaj \n"
+					+ "FROM produs A "
+					+ "INNER JOIN istoric_comenzi B ON A.id = B.produs_id \n"
+					+ "WHERE A.id = " + produs.getId() + "\n"
+					+ "AND produs_id = " + istoric.getProdusId() + "\n"
+					+ "\n"
+					+ "\n"
+				+ "Rezultatul query-ului este : \n"
+				+ result.get(0)[0] + " " + result.get(0)[1] + " lei " + result.get(0)[2] + " g ");
 		
+	}
+	
+	@FXML
+	public void afisIstoric(ActionEvent action) {
+		
+		IstoricComenziDao istoricDao = new IstoricComenziDaoImpl();
+		List<IstoricComenzi> istorice = istoricDao.getIstoricComenzi();
+		
+		String istoricList = "";
+		for(IstoricComenzi istoric : istorice) {
+			istoricList += istoric.display();
+		}
+		textArea.setText("Id"+ Constants.TAB +"Numarul comenzii" + Constants.TAB + "numarul produsului" + "\n"
+				+ "\n" 
+				+ istoricList);
+	}
+	
+	@FXML
+	public void resetButton(ActionEvent event) {
+		
+		textField1.setText(null);
+		textField2.setText(null);	
+		textField3.setText(null);
 	}
 	
 	@FXML

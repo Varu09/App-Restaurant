@@ -1,5 +1,6 @@
 package app.restaurant.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import app.restaurant.util.Constants;
 
 @Entity
 @Table(name = "categorie")
@@ -39,5 +42,9 @@ public class Categorie implements Serializable{
 		this.denumire = denumire;
 	}
 	
+	@Transient
+	public String display() {
+		return  id + Constants.TAB + denumire +"\n";
+	}
 	
 }

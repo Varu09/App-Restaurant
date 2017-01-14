@@ -1,5 +1,6 @@
 package app.restaurant.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import app.restaurant.util.Constants;
 
 
 @Entity
@@ -49,7 +52,10 @@ public class IstoricComenzi implements Serializable {
 		this.produsId = produsId;
 	}
 	
-	
+	@Transient
+	public String display() {
+		return id + Constants.TAB +comandaId + Constants.TAB + produsId + "\n";
+	}
 	
 
 }

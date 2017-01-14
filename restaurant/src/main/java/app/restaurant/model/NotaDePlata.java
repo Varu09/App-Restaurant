@@ -1,5 +1,6 @@
 package app.restaurant.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import app.restaurant.util.Constants;
 
 @Entity
 @Table(name ="nota_de_plata")
@@ -59,6 +62,9 @@ public class NotaDePlata implements Serializable{
 		this.pretTotal = pretTotal;
 	}
 	
-	
+	@Transient
+	public String display() {
+		return id + Constants.TAB + nrMasa + Constants.TAB + gramajTotal + " g " + Constants.TAB + pretTotal + " lei " + "\n";
+	}
 	
 }

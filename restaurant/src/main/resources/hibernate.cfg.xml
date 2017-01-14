@@ -25,7 +25,12 @@
 
  		<!-- mappings for annotated classes -->
  		<mapping class="app.restaurant.model.Masa" />
+ 		<mapping class="app.restaurant.model.Produs" />
  		<mapping class="app.restaurant.model.Customer" />
+ 		<mapping class="app.restaurant.model.Comanda" />
+ 		<mapping class="app.restaurant.model.Categorie" />
+ 		<mapping class="app.restaurant.model.IstoricComenzi" />
+ 		<mapping class="app.restaurant.model.NotaDePlata" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -25,7 +25,7 @@ public class ProdusDaoImpl implements ProdusDao{
         try {
         	session = HibernateUtil.getInstance().getSession();
             transaction = session.beginTransaction();
-            produse = session.createCriteria(Produs.class).list();
+            produse = session.createCriteria(Produs.class).list();            
             transaction.commit();
         	
         } catch(Exception e) {

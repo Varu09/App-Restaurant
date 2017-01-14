@@ -16,12 +16,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class NotaDePlataController extends AnchorPane implements Initializable {
 	
 	@FXML
 	private TextArea textArea;
+	
+	@FXML
+	private TextField textField1;
+	
+	@FXML
+	private TextField textField2;
+	
+	@FXML
+	private TextField textField3;
+	
+	@FXML
+	private TextField textField4;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -35,9 +48,9 @@ public class NotaDePlataController extends AnchorPane implements Initializable {
 		NotaDePlataDao notaDao = new NotaDePlataDaoImpl();
 		NotaDePlata nota = new NotaDePlata();
 		
-		nota.setGramajTotal(600);
-		nota.setNrMasa(1);
-		nota.setPretTotal(120);
+		nota.setNrMasa(Integer.parseInt(textField1.getText()));
+		nota.setGramajTotal(Integer.parseInt(textField2.getText()));		
+		nota.setPretTotal(Integer.parseInt(textField3.getText()));
 		notaDao.addNota(nota);
 		
 		textArea.setText("A fost adaugata urmatoarea nota de plata : \n"
@@ -51,7 +64,7 @@ public class NotaDePlataController extends AnchorPane implements Initializable {
 		
 		NotaDePlataDao notaDao = new NotaDePlataDaoImpl();
 		NotaDePlata nota = new NotaDePlata();
-		nota.setId(3);
+		nota.setId(Integer.parseInt(textField4.getText()));
 		notaDao.removeNota(nota);
 		
 		textArea.setText("A fost stearsa nota de plata cu numarul : " + nota.getId());
@@ -63,9 +76,9 @@ public class NotaDePlataController extends AnchorPane implements Initializable {
 		NotaDePlataDao notaDao = new NotaDePlataDaoImpl();
 		NotaDePlata nota = new NotaDePlata();
 		
-		nota.setId(4);
-		nota.setGramajTotal(1000);
-		nota.setPretTotal(200);
+		nota.setId(Integer.parseInt(textField4.getText()));
+		nota.setGramajTotal(Integer.parseInt(textField2.getText()));
+		nota.setPretTotal(Integer.parseInt(textField3.getText()));
 		notaDao.updateNota(nota);
 		textArea.setText("S-a realizat urmatorul update : \n"
 				+ "Nota cu numarul : " + nota.getId() + "\n"
@@ -83,8 +96,17 @@ public class NotaDePlataController extends AnchorPane implements Initializable {
 		masa.setId(2);
 		nota.setNrMasa(2);
 		List<Object[]> result = notaDao.simpleQuery(nota, masa);
-		textArea.setText("Rezultatul query-ului este: \n"
-				+ result.get(0)[0] + " " + result.get(0)[1] + " " + result.get(0)[2]);
+		textArea.setText("SELECT A.nr_masa, A.gramaj_total, A.pret_total \n"
+					+ "FROM nota_de_plata A \n"
+					+ "INNER JOIN masa B ON A.nr_masa = B.id \n"
+					+ "WHERE A.nr_masa = " + nota.getNrMasa() + "\n"
+					+ "AND B.id = " + masa.getId() + "\n"
+					+ "\n"
+					+ "\n"
+				+ "Rezultatul query-ului este : \n"
+				+ "Numarul mesei : " + result.get(0)[0] + "\n"
+				+ "Gramajul total : " + result.get(0)[1] + " g " +"\n"
+				+ "Pretul total : " + result.get(0)[2] + " lei ");
 		
 	}
 	
@@ -97,12 +119,41 @@ public class NotaDePlataController extends AnchorPane implements Initializable {
 		
 		comanda.setData("2017-01-01 02:20:00");
 		List<Object[]> result = notaDao.complexQuery(comanda);		
-		textArea.setText("Rezultatul query-ului este: \n"
-				+ result.get(0)[0] + " " + result.get(0)[1] + " " + result.get(0)[2]);
+		textArea.setText("SELECT pret_total \n"
+					+ "FROM nota_de_plata \n"
+					+ "WHERE id IN (SELECT id \n"
+					+ 	  "\t \t \t FROM comanda \n"
+					+ 	  "\t \t \t WHERE data = " + comanda.getData() + ") \n"
+					+ "\n"
+					+ "\n"
+				+ "Rezultatul query-ului este : \n"				
+				+ "Pretul total : " + result.get(0) + " lei ");
 		  	
 	}
 	
-	//TODO afisare
+	@FXML
+	public void afisChitante(ActionEvent event) {
+		
+		NotaDePlataDao notaDao = new NotaDePlataDaoImpl();
+		List<NotaDePlata> chitante = notaDao.getChitante();
+		
+		String chitanteList = "";
+		for(NotaDePlata nota : chitante) {
+			chitanteList += nota.display();
+		}
+		textArea.setText("Id chitanta"+ Constants.TAB +"Numarul mesei" + Constants.TAB + "Gramajul total" + Constants.TAB + "Pretul total" + "\n" 
+				+ "\n" 
+				+ chitanteList);
+	}
+	
+	@FXML
+	public void resetButton(ActionEvent event) {
+		
+		textField1.setText(null);
+		textField2.setText(null);	
+		textField3.setText(null);
+		textField4.setText(null);
+	}
 	
 	@FXML
 	public void backButton(ActionEvent event) {

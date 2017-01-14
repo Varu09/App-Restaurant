@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import app.restaurant.util.Constants;
+
 @Entity
 @Table(name = "comanda")
 public class Comanda implements Serializable {
@@ -52,6 +54,6 @@ public class Comanda implements Serializable {
 	
 	@Transient
 	public String display() {
-		return data;
+		return id + Constants.TAB + clientId + Constants.TAB + data + "\n";
 	}
 }

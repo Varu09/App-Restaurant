@@ -162,7 +162,7 @@ public class NotaDePlataDaoImpl implements NotaDePlataDao {
 		try {
 			session = HibernateUtil.getInstance().getSession();
 			
-			Query query = session.createSQLQuery("SELECT nr_masa, gramaj_total, pret_total "
+			Query query = session.createSQLQuery("SELECT pret_total "
 					+ "FROM nota_de_plata "
 					+ "WHERE id IN (SELECT id "
 					+ 			   "FROM comanda "

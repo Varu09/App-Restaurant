@@ -18,12 +18,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class ProduseController extends AnchorPane implements Initializable {
 	
 	@FXML
 	private TextArea textArea;
+	
+	@FXML
+	private TextField textField1;
+	
+	@FXML
+	private TextField textField2;
+	
+	@FXML
+	private TextField textField3;
+	
+	@FXML
+	private TextField textField4;
+	
+	@FXML
+	private TextField textField5;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -42,10 +58,10 @@ public class ProduseController extends AnchorPane implements Initializable {
 		ProdusDao produsDao = new ProdusDaoImpl();
 		Produs produs = new Produs();
 		
-		produs.setCategorieId(2);
-		produs.setNume("Ciorba de burta");
-		produs.setPret(11);
-	    produs.setGramaj(150);
+		produs.setCategorieId(Integer.parseInt(textField1.getText()));
+		produs.setNume(textField2.getText());
+		produs.setPret(Integer.parseInt(textField3.getText()));
+	    produs.setGramaj(Integer.parseInt(textField4.getText()));
 		produsDao.addProdus(produs);
 		
 		textArea.setText("A fost adaugat urmatorul produs: \n"
@@ -62,7 +78,7 @@ public class ProduseController extends AnchorPane implements Initializable {
 		ProdusDao produsDao = new ProdusDaoImpl();
 		Produs produs = new Produs();
 		
-		produs.setId(9);
+		produs.setId(Integer.parseInt(textField5.getText()));
 		produsDao.removeProdus(produs);
 		textArea.setText("A fost sters produsul cu id : " + produs.getId());
 		
@@ -74,10 +90,10 @@ public class ProduseController extends AnchorPane implements Initializable {
 		ProdusDao produsDao = new ProdusDaoImpl();
 		Produs produs = new Produs();
 		
-		produs.setPret(6);
-		produs.setId(1);
-		produs.setGramaj(100);
-		produs.setNume("Sunca");
+		produs.setPret(Integer.parseInt(textField3.getText()));
+		produs.setId(Integer.parseInt(textField5.getText()));
+		produs.setGramaj(Integer.parseInt(textField4.getText()));
+		produs.setNume(textField2.getText());
 		produsDao.updateProdus(produs);
 		
 		textArea.setText("S-a realizat urmatorul update : \n"
@@ -94,25 +110,41 @@ public class ProduseController extends AnchorPane implements Initializable {
 		  
 		  categorie.setDenumire("Preparate reci");
 		  List<Object[]> result = produsDao.complexQuery(categorie);
-		  textArea.setText("Rezultatul query-ului este : \n "
-				  + result.get(0)[0] + " " + result.get(0)[1] + " ");
+		  textArea.setText("SELECT  P.nume, P.pret \n"
+					+ "FROM produs P \n"
+					+ "WHERE P.id IN (SELECT categorie_id \n"
+					+ 		 "\t \t \t FROM categorie \n"
+					+  		 "\t \t \t WHERE denumire = " + categorie.getDenumire() + ") \n"
+					+ "\n"
+					+ "\n"
+		  		+ "Rezultatul query-ului este : \n "
+				  + result.get(0)[0] + " " + result.get(0)[1] + " lei ");
 	}
 	
 	@FXML
 	public void afisProduse(ActionEvent event) {
 		
-		ProdusDao produsDao = new ProdusDaoImpl();					
-		
+		ProdusDao produsDao = new ProdusDaoImpl();	
 		List<Produs> produse = produsDao.getProduse();
 		
 		String produseList = "";		
 		for(Produs produs: produse){
 			produseList += produs.display();
-			System.out.println(produseList);
+			
 		}
-		textArea.setText("Numarul categoriei" + Constants.TAB + "Denumire" + Constants.TAB + "Pret" + Constants.TAB + "Gramaj" 
+		textArea.setText("Id produs"+ Constants.TAB +"Numarul categoriei" + Constants.TAB + "Denumire" + Constants.TAB + "Pret" + Constants.TAB + "Gramaj" + "\n" 
 						+ "\n" 
 						+ produseList);
+	}
+	
+	@FXML
+	public void resetButton(ActionEvent event) {
+		
+		textField1.setText(null);
+		textField2.setText(null);
+		textField3.setText(null);
+		textField4.setText(null);
+		textField5.setText(null);
 	}
 	
 	@FXML

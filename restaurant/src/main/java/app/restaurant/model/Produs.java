@@ -76,9 +76,9 @@ public class Produs implements Serializable {
 		this.gramaj = gramaj;
 	}
 	
-	//@Transient
+	@Transient
 	public String display() {
-		return categorieId + Constants.TAB + nume + Constants.TAB + pret + " lei " + Constants.TAB + gramaj + " g " + "\n";
+		return id + Constants.TAB +categorieId + Constants.TAB + nume + Constants.TAB + pret + " lei " + Constants.TAB + gramaj + " g " + "\n";
 	}
 	
 	

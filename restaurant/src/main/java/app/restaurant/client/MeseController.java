@@ -14,13 +14,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class MeseController extends AnchorPane implements Initializable {
 	
 	@FXML
 	private TextArea textArea;
-
+	
+	@FXML
+	private TextField textField1;
+	
+	@FXML
+	private TextField textField2;
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -37,7 +44,7 @@ public class MeseController extends AnchorPane implements Initializable {
 		MasaDao masaDao = new MasaDaoImpl();
 		Masa masa = new Masa();
 		
-		masa.setNrLocuri(10);
+		masa.setNrLocuri(Integer.parseInt(textField2.getText()));
 		masaDao.addTable(masa);
 		
 		textArea.setText("A fost adaugata o masa: \n"
@@ -50,7 +57,7 @@ public class MeseController extends AnchorPane implements Initializable {
 		MasaDao masaDao = new MasaDaoImpl();
 		Masa masa = new Masa();
 		
-		masa.setId(4);
+		masa.setId(Integer.parseInt(textField1.getText()));
 		masaDao.removeTable(masa);
 		textArea.setText("A fost stearsa masa cu numarul : " + masa.getId());
 	}
@@ -61,8 +68,8 @@ public class MeseController extends AnchorPane implements Initializable {
 		MasaDao masaDao = new MasaDaoImpl();
 		Masa masa = new Masa();
 		
-		masa.setId(3);
-		masa.setNrLocuri(5);
+		masa.setId(Integer.parseInt(textField1.getText()));
+		masa.setNrLocuri(Integer.parseInt(textField2.getText()));
 		masaDao.updateTable(masa);
 		
 		textArea.setText("Masa cu numarul : " + masa.getId() + "\n"
@@ -76,12 +83,43 @@ public class MeseController extends AnchorPane implements Initializable {
 		
 		masa.setId(2);
 		  List<Object[]> result = masaDao.complexQuery(masa);
-		  textArea.setText("Rezultatul query-ului: \n"
-		  		+ result.get(0)[0] + " " + result.get(0)[1] + "\n");
+		  textArea.setText("SELECT M.id, P.nume, P.gramaj \n"
+					+ "FROM masa M \n"
+					+ "INNER JOIN customer C ON C.nr_masa = M.id \n"
+					+ "INNER JOIN comanda CM ON C.id = CM.customer_id \n"
+					+ "INNER JOIN istoric_comenzi IC ON CM.id = IC.comanda_id \n"
+					+ "INNER JOIN  produs P ON IC.produs_id = P.id \n"
+					+ "WHERE M.id = " + masa.getId() + "\n"
+					+ "\n"
+					+ "\n"
+		  		+ "Rezultatul query-ului: \n"
+		  		+ "Numarul mesei : " +result.get(0)[0] + "\n" 
+				+ "Produsul : " + result.get(0)[1] + "\n"
+				+ "Gramajul : " + result.get(0)[2] + " g ");
 		  		
 	}
 	
-	//TODO afis
+	@FXML
+	public void afisMese(ActionEvent event) {
+		
+		MasaDao masaDao = new MasaDaoImpl();
+		List<Masa> mese = masaDao.getTables();
+		
+		String meseList = "";
+		for(Masa masa : mese) {
+			meseList += masa.display();
+		}
+		textArea.setText("Numarul mesei" + Constants.TAB + "Numarul de locuri" + "\n" 
+				+ "\n" 
+				+ meseList);
+	}
+	
+	@FXML
+	public void resetButton(ActionEvent event) {
+		
+		textField1.setText(null);
+		textField2.setText(null);		
+	}
 	
 	@FXML
 	public void backButton(ActionEvent event) {

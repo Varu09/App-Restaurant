@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -21,6 +22,16 @@ public class ComandaController extends AnchorPane implements Initializable{
 	
 	@FXML
 	private TextArea textArea;
+	
+	@FXML
+	private TextField textField1;
+	
+	@FXML
+	private TextField textField2;
+	
+	@FXML
+	private TextField textField3;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -34,8 +45,8 @@ public class ComandaController extends AnchorPane implements Initializable{
 		ComandaDao comandaDao = new ComandaDaoImpl();
 		Comanda comanda = new Comanda();
 		
-		comanda.setClientId(3);
-		comanda.setData("2010-06-15 12:50:25");
+		comanda.setClientId(Integer.parseInt(textField1.getText()));
+		comanda.setData(textField2.getText());
 		comandaDao.addComanda(comanda);
 		
 		textArea.setText("A fost adaugata comanda : \n"
@@ -49,7 +60,7 @@ public class ComandaController extends AnchorPane implements Initializable{
 		ComandaDao comandaDao = new ComandaDaoImpl();
 		Comanda comanda = new Comanda();
 		
-		comanda.setId(4);
+		comanda.setId(Integer.parseInt(textField3.getText()));
 		comandaDao.removeComanda(comanda);
 		
 		textArea.setText("A fost stearsa comanda cu numarul : " + comanda.getId());
@@ -61,8 +72,8 @@ public class ComandaController extends AnchorPane implements Initializable{
 		ComandaDao comandaDao = new ComandaDaoImpl();
 		Comanda comanda = new Comanda();
 		
-		comanda.setId(5);
-		comanda.setData("2014-06-15 12:50:25");
+		comanda.setId(Integer.parseInt(textField3.getText()));
+		comanda.setData(textField2.getText());
 		comandaDao.updateComanda(comanda);
 		
 		textArea.setText("S-a realizat un update : \n"
@@ -81,8 +92,16 @@ public class ComandaController extends AnchorPane implements Initializable{
 		comanda.setId(1);
 		istoric.setComandaId(1);
 		List<Object[]> result = comandaDao.simpleQuery(comanda, istoric);
-		textArea.setText("Rezultatul query-ului: \n"
-				+ result.get(0));
+		textArea.setText("SELECT A.data "
+					+ "FROM comanda A \n"
+					+ "INNER JOIN istoric_comenzi B ON A.id = B.comanda_id \n"
+					+ "WHERE A.id = " + comanda.getId() + "\n"
+					+ "AND B.comanda_id = " + istoric.getComandaId() + "\n"
+					+ "\n"
+					+ "\n"
+				+ "Rezultatul query-ului : \n"
+				+ result.get(0));		
+		
 	}
 	
 	@FXML
@@ -97,7 +116,17 @@ public class ComandaController extends AnchorPane implements Initializable{
 			comandaList += comanda.display();
 		}
 		
-		textArea.setText("Datele comenzilor : \n" + comandaList);
+		textArea.setText("Id comanda"+ Constants.TAB +"Numarul clientului" + Constants.TAB + "data comenzii" + "\n"
+				+ "\n" 
+				+ comandaList);
+	}
+	
+	@FXML
+	public void resetButton(ActionEvent event) {
+		
+		textField1.setText(null);
+		textField2.setText(null);	
+		textField3.setText(null);
 	}
 	
 	@FXML

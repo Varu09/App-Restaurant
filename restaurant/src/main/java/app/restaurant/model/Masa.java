@@ -2,6 +2,7 @@ package app.restaurant.model;
 
 
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import app.restaurant.util.Constants;
 
 @Entity
 @Table(name = "masa")
@@ -42,7 +45,11 @@ public class Masa implements Serializable{
 	public void setNrLocuri(int nrLocuri) {
 		this.nrLocuri = nrLocuri;
 	}
-
+	
+	@Transient
+	public String display() {
+		return id + Constants.TAB + nrLocuri + "\n";
+	}
 
 
 	
